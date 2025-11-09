@@ -1,8 +1,33 @@
-Pare ejecutar el proyecto dentro de la computadora sigue estos pasos
-1. Copea el repositorio en tu computadora
-2. Abre la carpeta del repositorio en unity hub desde el boton add --> add project from disk
-3. Abre el proyecto desde la lista de proyectos en unity hub
-4. Te va a marcar un error de ruta con la libreria de ParrelSync, dale al boton de continue
-5. Una vez con el proyecto abierto te vas a ir a la barra superior Window --> Package Managment --> Package Manager
-6. En ventana que se abrio vas a buscar el icono de "+" --> Install package from disk
-7. Seleccionas el 
+# 🧩 Instrucciones para ejecutar el proyecto en tu computadora
+
+### 1. Copia el repositorio en tu computadora
+Descarga o clona el repositorio para tenerlo de forma local.
+
+---
+
+### 2. Abre el proyecto en Unity Hub
+1. Abre **Unity Hub**.  
+2. En la parte superior selecciona el botón **Add → Add project from disk**.  
+3. Busca la carpeta del repositorio que clonaste.  
+4. Selecciona la carpeta y haz clic en **Add Project**.
+
+---
+
+### 3. Abre el proyecto desde Unity Hub
+Una vez agregado, el proyecto aparecerá en la lista de proyectos de Unity Hub.  
+Haz clic sobre él para abrirlo.
+
+---
+
+### 4. Error de ruta con ParrelSync
+Cuando Unity cargue el proyecto por primera vez, aparecerá un error relacionado con la librería **ParrelSync**.  
+Haz clic en **Continue** para continuar con la carga del proyecto.
+
+---
+
+### 5. Instalar el paquete ParrelSync
+1. En la barra superior, ve a **Window → Package Management → Package Manager**.  
+2. En la ventana que se abre, haz clic en el ícono de **“+”** (arriba a la izquierda).  
+3. Selecciona la opción **Install package from disk...**.  
+4. Busca y selecciona el archivo `package.json` en la siguiente ruta:
+
