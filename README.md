@@ -2,7 +2,8 @@
 
 ### 1. Copia el repositorio en tu computadora
 Descarga o clona el repositorio para tenerlo de forma local.
-  git clone https://github.com/giaskas/Attack-on-Teacher.git
+  `git clone https://github.com/giaskas/Attack-on-Teacher.git` 
+  
 ---
 
 ### 2. Abre el proyecto en Unity Hub
