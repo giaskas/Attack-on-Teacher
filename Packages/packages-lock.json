@@ -225,7 +225,7 @@
       "url": "https://packages.unity.com"
     },
     "com.veriorpies.parrelsync": {
-      "version": "file:C:/Users/canan/Downloads/ParrelSync-master/ParrelSync-master/ParrelSync",
+      "version": "file:../ParrelSync-master/ParrelSync-master/ParrelSync",
       "depth": 0,
       "source": "local",
       "dependencies": {}
