@@ -14,6 +14,8 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
     private Vector3 targetRotationDirection;
     [SerializeField] float walkingSpeed = 2;
     [SerializeField] float runningspeed = 5;
+    [SerializeField] float sprintingSpeed = 7;
+
     [SerializeField] float rotationSpeed = 15;
 
     [Header("Dodge")]
@@ -40,7 +42,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
             horizontalMovement = player.characterNetworkManager.horizontalMovement.Value;
             moveAmount = player.characterNetworkManager.moveAmount.Value;
 
-            player.playerAnimatorManager.UpdateAnimatorMovementParameters(0, moveAmount);
+            player.playerAnimatorManager.UpdateAnimatorMovementParameters(0, moveAmount, player.playerNetworkManager.isSprinting.Value);
         }
         
     }
@@ -70,16 +72,29 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
         moveDirection.Normalize();
         moveDirection.y = 0;
 
-        // 3. SOLUCIÓN: Lógica corregida para caminar/correr
-        if (PlayerInputManager.instance.moveAmount > 0.5f)
+        if (player.playerNetworkManager.isSprinting.Value)
         {
-            player.characterController.Move(moveDirection * runningspeed * Time.deltaTime);
+            player.characterController.Move(moveDirection * sprintingSpeed * Time.deltaTime);
+
+
         }
-        else if (PlayerInputManager.instance.moveAmount > 0f)
+        else
         {
-            player.characterController.Move(moveDirection * walkingSpeed * Time.deltaTime);
+            if (PlayerInputManager.instance.moveAmount > 0.5f)
+            {
+                player.characterController.Move(moveDirection * runningspeed * Time.deltaTime);
+
+            }
+            else if (PlayerInputManager.instance.moveAmount > 0f)
+            {
+                player.characterController.Move(moveDirection * walkingSpeed * Time.deltaTime);
+            }
         }
     }
+
+
+        // 3. SOLUCIÓN: Lógica corregida para caminar/correr
+
     private void HandleRotation()
     {
         if (!player.canRotate)
@@ -103,7 +118,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
         Quaternion targetRotation = Quaternion.Slerp(transform.rotation, newRotation, rotationSpeed * Time.deltaTime);
         transform.rotation = targetRotation;
     }
-    
+
     public void AttemptToPerformDodge()
     {
         if (player.isPerformingAction)
@@ -130,6 +145,26 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
 
     }
 
+    public void HandleSprinting()
+    {
+        if (player.isPerformingAction)
+        {
+            player.playerNetworkManager.isSprinting.Value = false;
+        }
+
+
+        if(moveAmount > 0.5f)
+        {
+            player.playerNetworkManager.isSprinting.Value = true;
+        }
+        else
+        {
+            player.playerNetworkManager.isSprinting.Value = false;
+        }
+        
+
+
+    }
 
 
 }

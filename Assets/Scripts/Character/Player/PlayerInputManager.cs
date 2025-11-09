@@ -22,6 +22,7 @@ public class PlayerInputManager : MonoBehaviour
 
     [Header("Player Actions Input")]
     [SerializeField] bool dodgeInput = false;
+    [SerializeField] bool sprintInput = false;
 
 
 
@@ -56,7 +57,17 @@ public class PlayerInputManager : MonoBehaviour
             playerControls = new PlayerControll();
             playerControls.PlayerMovement.Movement.performed += i => movementInput = i.ReadValue<Vector2>();
             playerControls.PlayerCamara.Movement.performed += i => camaraInput = i.ReadValue<Vector2>();
-            playerControls.PlayerActions.Dodge.performed += instance => dodgeInput = true;
+            playerControls.PlayerActions.Dodge.performed += i => dodgeInput = true;
+
+            //apretando avtiva el bool a true
+            playerControls.PlayerActions.Sprint.performed += i => {
+                sprintInput = true;
+                Debug.Log("Sprint Performed (Hold completo)");
+            };
+            playerControls.PlayerActions.Sprint.canceled += i => {
+                sprintInput = false;
+                Debug.Log("Sprint Canceled (Botón soltado)");
+            };
         }
 
         // 2. SOLUCIÓN: Activar el mapa de acción específico
@@ -134,6 +145,7 @@ public class PlayerInputManager : MonoBehaviour
         HandlePlayerMovementInput();
         HandleCamaraMovementInput();
         HandleDodgeInput();
+        HandleSprinting();
     }
 
     //movimiento
@@ -155,7 +167,7 @@ public class PlayerInputManager : MonoBehaviour
         if (player == null)
             return;
 
-        player.playerAnimatorManager.UpdateAnimatorMovementParameters(0, moveAmount);
+        player.playerAnimatorManager.UpdateAnimatorMovementParameters(0, moveAmount, player.playerNetworkManager.isSprinting.Value);
     }
 
     private void HandleCamaraMovementInput()
@@ -163,8 +175,8 @@ public class PlayerInputManager : MonoBehaviour
         camaraVerticalInput = camaraInput.y;
         camaraHorizontalInput = camaraInput.x;
     }
-    
-    
+
+
     //acciones
     private void HandleDodgeInput()
     {
@@ -174,6 +186,16 @@ public class PlayerInputManager : MonoBehaviour
 
             player.playerLocomotionManager.AttemptToPerformDodge();
 
+        }
+    }
+    private void HandleSprinting()
+    {
+        if (sprintInput)
+        {
+            player.playerLocomotionManager.HandleSprinting();
+        }else
+        {
+            player.playerNetworkManager.isSprinting.Value = false;
         }
     }
 

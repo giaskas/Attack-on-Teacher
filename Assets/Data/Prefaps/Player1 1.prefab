@@ -98,7 +98,13 @@ PrefabInstance:
       addedObject: {fileID: -4770471677205922520}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f1fb6c7fe88c12c44b0e8bd4e8066b73, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 1623379295930961889}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f1fb6c7fe88c12c44b0e8bd4e8066b73, type: 3}
+      insertIndex: -1
       addedObject: {fileID: -9111805440719863531}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f1fb6c7fe88c12c44b0e8bd4e8066b73, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1815224274016473840}
   m_SourcePrefab: {fileID: 100100000, guid: f1fb6c7fe88c12c44b0e8bd4e8066b73, type: 3}
 --- !u!1 &5026200696437315259 stripped
 GameObject:
@@ -156,6 +162,8 @@ MonoBehaviour:
     m_InternalValue: 0
   moveAmount:
     m_InternalValue: 0
+  isSprinting:
+    m_InternalValue: 0
 --- !u!114 &2300549843611151130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,6 +186,7 @@ MonoBehaviour:
   canMove: 1
   playerLocomotionManager: {fileID: 0}
   playerAnimatorManager: {fileID: 0}
+  playerNetworkManager: {fileID: 0}
 --- !u!114 &3542505853649565097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,7 +203,8 @@ MonoBehaviour:
   horizontalMovement: 0
   moveAmount: 0
   walkingSpeed: 2
-  runningspeed: 7
+  runningspeed: 6
+  sprintingSpeed: 10
   rotationSpeed: 15
 --- !u!143 &8868229695388827311
 CharacterController:
@@ -285,6 +295,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d34e981e0478e584bafc3f7539f484c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1623379295930961889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5026200696437315259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6adb460152d2297449f3ea270647a5b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &-9111805440719863531
 Animator:
   serializedVersion: 7
@@ -307,3 +329,100 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!82 &1815224274016473840
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5026200696437315259}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
