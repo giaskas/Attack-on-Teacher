@@ -44,5 +44,75 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a187e62c1b53614da582f1e2f092e0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 2300549843611151130, guid: 75e7c5ee4f7ffbc42a838f91f089bba6, type: 3}
+  saveGame: 0
+  loadGame: 0
   worldSceneName: Scene_World_01
   worldSceneIndex: 1
+  currentCharacterSlot: 0
+  currentCharacterData:
+    characterName: 
+    secondsPlayer: 0
+    positionX: 0
+    positionY: 0
+    positionZ: 0
+  characterSlot01:
+    characterName: character
+    secondsPlayer: 0
+    positionX: 0
+    positionY: 0
+    positionZ: 0
+  characterSlot02:
+    characterName: 
+    secondsPlayer: 0
+    positionX: 0
+    positionY: 0
+    positionZ: 0
+  characterSlot03:
+    characterName: 
+    secondsPlayer: 0
+    positionX: 0
+    positionY: 0
+    positionZ: 0
+  characterSlot04:
+    characterName: 
+    secondsPlayer: 0
+    positionX: 0
+    positionY: 0
+    positionZ: 0
+  characterSlot05:
+    characterName: 
+    secondsPlayer: 0
+    positionX: 0
+    positionY: 0
+    positionZ: 0
+  characterSlot06:
+    characterName: 
+    secondsPlayer: 0
+    positionX: 0
+    positionY: 0
+    positionZ: 0
+  characterSlot07:
+    characterName: 
+    secondsPlayer: 0
+    positionX: 0
+    positionY: 0
+    positionZ: 0
+  characterSlot08:
+    characterName: 
+    secondsPlayer: 0
+    positionX: 0
+    positionY: 0
+    positionZ: 0
+  characterSlot09:
+    characterName: 
+    secondsPlayer: 0
+    positionX: 0
+    positionY: 0
+    positionZ: 0
+  characterSlot10:
+    characterName: 
+    secondsPlayer: 0
+    positionX: 0
+    positionY: 0
+    positionZ: 0

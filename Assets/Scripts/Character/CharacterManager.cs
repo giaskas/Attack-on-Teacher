@@ -1,21 +1,26 @@
 using UnityEngine;
 using Unity.Netcode;
+using System.Collections;
 
 public class CharacterManager : NetworkBehaviour
 {
+    [Header("Status")]
+    public NetworkVariable<bool> isDead=new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone,NetworkVariableWritePermission.Owner);
     [HideInInspector] public CharacterController characterController;
     [HideInInspector] public Animator animator;
     [HideInInspector] public CharacterNetworkManager characterNetworkManager;
+    [HideInInspector] public CharacterEffectsManager characterEffectsManager;
+    [HideInInspector] public CharacterAnimatorManager characterAnimatorManager;
 
     [Header("Flags")]
     public bool isPerformingAction = false;
     public bool applyRootMotion = false;
     public bool canRotate = true;
     public bool canMove = true;
-    
+    public bool isGrounded = true;
 
-    // --- AÑADE ESTA LÍNEA ---
-    // Necesitamos una referencia al PlayerManager para pasársela a la cámara
+
+
     PlayerManager playerManager; 
 
     protected virtual void Awake()
@@ -23,26 +28,21 @@ public class CharacterManager : NetworkBehaviour
         DontDestroyOnLoad(gameObject);
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        playerManager = GetComponent<PlayerManager>(); 
         characterNetworkManager = GetComponent<CharacterNetworkManager>();
-
-        // --- AÑADE ESTA LÍNEA ---
-        playerManager = GetComponent<PlayerManager>(); // Obtiene el componente
+        characterEffectsManager = GetComponent<CharacterEffectsManager>();
+        characterAnimatorManager = GetComponent<CharacterAnimatorManager>();
         
     }
 
-    // --- AÑADE ESTA FUNCIÓN NUEVA ---
-    // OnNetworkSpawn se llama cuando este objeto es creado en la red
     public override void OnNetworkSpawn()
     {
-        base.OnNetworkSpawn(); // No olvides llamar al método base
+        base.OnNetworkSpawn();
 
-        // Si este objeto de jugador me pertenece (es MI jugador, no el de otro)
         if (IsOwner)
         {
-            // Busca la instancia de la cámara que ya existe en la escena
             if (PlayerCamara.instance != null)
             {
-                // Asígnale ESTE jugador (su componente PlayerManager) a la variable 'player' de la cámara
                 PlayerCamara.instance.player = playerManager;
             }
         }
@@ -50,6 +50,7 @@ public class CharacterManager : NetworkBehaviour
 
     protected virtual void Update()
     {
+        animator.SetBool("isGrounded",isGrounded );
         if (IsOwner)
         {
             characterNetworkManager.networkPosition.Value = transform.position;
@@ -75,8 +76,25 @@ public class CharacterManager : NetworkBehaviour
     {
         if (!IsOwner)
             return;
-        
-        // Esta línea ahora SÍ funcionará porque 'PlayerCamara.instance.player' ya no es null
+
         PlayerCamara.instance.HandleAllCameraActions();
+    }
+  
+
+    public virtual IEnumerator ProcessDeathEvent(bool manuallySelectDamageAnimation = false)
+    {
+        if (IsOwner)
+        {
+            characterNetworkManager.currentHealth.Value=0;
+            isDead.Value =true;
+
+            if (!manuallySelectDamageAnimation)
+            {
+                characterAnimatorManager.PlayerTargetActionAnimation("Dead_01",true);
+            }
+        }
+
+
+        yield return new WaitForSeconds(5);
     }
 }

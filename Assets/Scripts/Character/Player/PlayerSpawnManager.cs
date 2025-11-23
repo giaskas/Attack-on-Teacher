@@ -45,7 +45,6 @@ public class PlayerSpawnManager : NetworkBehaviour
 
     private void SpawnPlayer(ulong clientId)
     {
-        Debug.Log($"Spawneando jugador para el cliente: {clientId}");
 
         // 1. Define la posición de spawn
         Vector3 position = spawnPoint != null ? spawnPoint.position : Vector3.zero;

@@ -17,9 +17,12 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
     [SerializeField] float sprintingSpeed = 7;
 
     [SerializeField] float rotationSpeed = 15;
+    [SerializeField] float sprintingStaminaCost = 10;
+
 
     [Header("Dodge")]
     private Vector3 rollDirection;
+    [SerializeField] float dodgeStaminaCost = 10;
 
     protected override void Awake()
     {
@@ -54,6 +57,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
     }
     public void HandleAllMovement()
     {
+        
         HandleGroundedMovement();
         HandleRotation();
     }
@@ -123,7 +127,9 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
     {
         if (player.isPerformingAction)
             return;
-
+        if (player.playerNetworkManager.currentStamina.Value <= 0)
+            return;
+            
         if (PlayerInputManager.instance.moveAmount > 0)
         {
             rollDirection = PlayerCamara.instance.cameraObject.transform.forward * PlayerInputManager.instance.verticalInput;
@@ -137,11 +143,14 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
 
             player.playerAnimatorManager.PlayerTargetActionAnimation("RollFoward_01", true, true);
 
+
         }
         else
         {
             //roll para atras
         }
+        player.playerNetworkManager.currentStamina.Value -= dodgeStaminaCost;
+
 
     }
 
@@ -150,10 +159,22 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
         if (player.isPerformingAction)
         {
             player.playerNetworkManager.isSprinting.Value = false;
+            return;
+        }
+            
+        if(player.playerNetworkManager.currentStamina.Value <= 0)
+        {
+            player.playerNetworkManager.isSprinting.Value = false;
+            return;
+        }
+        
+        if (player.playerNetworkManager.currentStamina.Value <= 0)
+        {
+            player.playerNetworkManager.isSprinting.Value = false;
+            return;
         }
 
-
-        if(moveAmount > 0.5f)
+        if (moveAmount > 0.5f)
         {
             player.playerNetworkManager.isSprinting.Value = true;
         }
@@ -161,10 +182,11 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
         {
             player.playerNetworkManager.isSprinting.Value = false;
         }
-        
 
+        if (player.playerNetworkManager.isSprinting.Value)
+        {
+            player.playerNetworkManager.currentStamina.Value -= sprintingStaminaCost * Time.deltaTime;
+        }
 
     }
-
-
 }

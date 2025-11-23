@@ -32,7 +32,7 @@ public class PlayerInputManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject); // Mover el DontDestroyOnLoad aquí es más seguro
+            DontDestroyOnLoad(gameObject); 
         }
         else
         {
@@ -42,11 +42,10 @@ public class PlayerInputManager : MonoBehaviour
 
     private void Start()
     {
-        // Suscribirse al evento de cambio de escena
+     
         SceneManager.activeSceneChanged += OnSceneChange;
 
-        // Comprobar la escena actual AL INICIAR
-        // Para que el input funcione si empezamos directo en la escena del mundo
+ 
         CheckSceneAndToggleInput(SceneManager.GetActiveScene());
     }
 
@@ -59,25 +58,21 @@ public class PlayerInputManager : MonoBehaviour
             playerControls.PlayerCamara.Movement.performed += i => camaraInput = i.ReadValue<Vector2>();
             playerControls.PlayerActions.Dodge.performed += i => dodgeInput = true;
 
-            //apretando avtiva el bool a true
             playerControls.PlayerActions.Sprint.performed += i => {
                 sprintInput = true;
-                Debug.Log("Sprint Performed (Hold completo)");
+                
             };
             playerControls.PlayerActions.Sprint.canceled += i => {
                 sprintInput = false;
-                Debug.Log("Sprint Canceled (Botón soltado)");
+            
             };
         }
 
-        // 2. SOLUCIÓN: Activar el mapa de acción específico
         playerControls.PlayerMovement.Enable();
     }
 
-    // Se llamará cuando el script sea deshabilitado (instance.enabled = false)
     private void OnDisable()
     {
-        // Buena práctica: deshabilitar el mapa de acción cuando el script se deshabilita
         if (playerControls != null)
         {
             playerControls.PlayerMovement.Disable();
@@ -89,26 +84,24 @@ public class PlayerInputManager : MonoBehaviour
         CheckSceneAndToggleInput(newScene);
     }
 
-    // 3. SOLUCIÓN: Lógica centralizada para habilitar/deshabilitar
     private void CheckSceneAndToggleInput(Scene scene)
     {
-        // Asumiendo que 'WorldSaveManager' está listo
         if (WorldSaveManager.instance != null)
         {
-            if (scene.buildIndex == WorldSaveManager.instance.GetWorldSceneIndex())
+            if (scene.buildIndex == WorldSaveManager.instance.worldSceneIndex)
             {
-                instance.enabled = true; // Esto llamará a OnEnable()
+                instance.enabled = true; 
             }
             else
             {
-                instance.enabled = false; // Esto llamará a OnDisable()
+                instance.enabled = false;
             }
         }
-        else if (scene.buildIndex == 0) // Fallback si es la escena 0 (Menú)
+        else if (scene.buildIndex == 0) 
         {
             instance.enabled = false;
         }
-        else // Fallback si no hay save manager pero no es el menú
+        else 
         {
             instance.enabled = true;
         }
@@ -116,7 +109,6 @@ public class PlayerInputManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        // Limpiar la suscripción
         SceneManager.activeSceneChanged -= OnSceneChange;
     }
 
@@ -144,11 +136,14 @@ public class PlayerInputManager : MonoBehaviour
     {
         HandlePlayerMovementInput();
         HandleCamaraMovementInput();
+        if (player == null)
+        return;
+        if(!player.isGrounded)
+        return;
         HandleDodgeInput();
         HandleSprinting();
     }
 
-    //movimiento
     private void HandlePlayerMovementInput()
     {
 
@@ -177,7 +172,6 @@ public class PlayerInputManager : MonoBehaviour
     }
 
 
-    //acciones
     private void HandleDodgeInput()
     {
         if (dodgeInput)

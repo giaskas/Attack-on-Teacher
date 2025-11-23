@@ -13,7 +13,7 @@
                     "expectedControlType": "Vector3",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -21,6 +21,17 @@
                     "name": "",
                     "id": "bed69bad-589b-4a75-b305-a3ea18eb931e",
                     "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8c42d5aa-e108-48ec-8b79-6dbcab54a146",
+                    "path": "",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -95,12 +106,71 @@
                 },
                 {
                     "name": "",
+                    "id": "d5169c28-00a5-4717-862f-42171d850fbb",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dodge",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "b588f0b9-ed48-4af6-abcc-679a5f04a4cb",
                     "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "UI",
+            "id": "bde38361-829e-48ac-a91f-a11c61a3b545",
+            "actions": [
+                {
+                    "name": "X",
+                    "type": "Button",
+                    "id": "c8c283cf-9c1d-4c43-896f-95f3b81955cf",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Tap",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "B",
+                    "type": "Button",
+                    "id": "e6e903f9-744f-4f14-b768-607b0672042c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "1da46cc4-4779-4c74-841c-baf1122c8f18",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "X",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "15fa9048-4315-440a-878e-a7fd0b563930",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "B",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
