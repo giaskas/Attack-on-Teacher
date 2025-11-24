@@ -23,6 +23,7 @@ public class PlayerInputManager : MonoBehaviour
     [Header("Player Actions Input")]
     [SerializeField] bool dodgeInput = false;
     [SerializeField] bool sprintInput = false;
+    [SerializeField] bool RB_Input = false;
 
 
 
@@ -57,6 +58,11 @@ public class PlayerInputManager : MonoBehaviour
             playerControls.PlayerMovement.Movement.performed += i => movementInput = i.ReadValue<Vector2>();
             playerControls.PlayerCamara.Movement.performed += i => camaraInput = i.ReadValue<Vector2>();
             playerControls.PlayerActions.Dodge.performed += i => dodgeInput = true;
+            playerControls.PlayerActions.RB.performed += i => RB_Input=true;
+            if(RB_Input== true)
+            {
+                Debug.Log("naa si funciono soy true");
+            }
 
             playerControls.PlayerActions.Sprint.performed += i => {
                 sprintInput = true;
@@ -142,6 +148,7 @@ public class PlayerInputManager : MonoBehaviour
         return;
         HandleDodgeInput();
         HandleSprinting();
+        HandleRBInput();
     }
 
     private void HandlePlayerMovementInput()
@@ -190,6 +197,20 @@ public class PlayerInputManager : MonoBehaviour
         }else
         {
             player.playerNetworkManager.isSprinting.Value = false;
+        }
+    }
+
+    private void HandleRBInput()
+    {
+        if (RB_Input)
+        {
+            RB_Input=false;
+
+            //si hay ui abierto no hacer nada
+
+            player.playerNetworkManager.SetCharacterActionHand(true);
+
+            player.playerCombatManager.PerformActionBasedAction(player.playerInventoryManager.currentRightHandWeapon.RB_Action,player.playerInventoryManager.currentRightHandWeapon);
         }
     }
 

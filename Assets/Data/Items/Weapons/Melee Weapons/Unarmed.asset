@@ -19,9 +19,10 @@ MonoBehaviour:
   weaponModel: {fileID: 3377079387577274896, guid: e1d472f7f83cc6342a530b879f4009c6, type: 3}
   strengthREQ: 1
   dexREQ: 1
-  intREQ: 0
-  faithREQ: 0
+  intREQ: 1
+  faithREQ: 1
   physicalDamage: 10
   magicDamage: 0
   fireDamage: 0
   baseStaminaCost: 20
+  RB_Action: {fileID: 11400000, guid: 127b9d03594edd141803bd69b842383a, type: 2}

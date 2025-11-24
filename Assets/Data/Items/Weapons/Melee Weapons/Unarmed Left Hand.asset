@@ -16,12 +16,13 @@ MonoBehaviour:
   itemIcon: {fileID: 0}
   itemDescription: 
   itemID: 0
-  weaponModel: {fileID: 0}
-  strengthREQ: 0
-  dexREQ: 0
-  intREQ: 0
-  faithREQ: 0
-  physicalDamage: 0
+  weaponModel: {fileID: 4567796584096777449, guid: 2664df884262de641be27bf0a2379edd, type: 3}
+  strengthREQ: 1
+  dexREQ: 1
+  intREQ: 1
+  faithREQ: 1
+  physicalDamage: 1
   magicDamage: 0
   fireDamage: 0
   baseStaminaCost: 20
+  RB_Action: {fileID: 11400000, guid: 127b9d03594edd141803bd69b842383a, type: 2}

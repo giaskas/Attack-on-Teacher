@@ -27,26 +27,28 @@ public class CharacterAnimatorManager : MonoBehaviour
 
     public virtual void PlayerTargetActionAnimation(
         string targetAnimation,
-        bool isPerformingAction,
+        bool isPerformingAction = true,
         bool applyRootMotion = true,
         bool canRotate = false,
-        bool canMove = false)
+        bool canMove = false,
+        string overrideLayerName = "Action Override") // <--- 1. Nuevo parámetro con valor por defecto
     {
         character.applyRootMotion = applyRootMotion;
 
+        // 2. Obtenemos el índice del layer basado en el nombre que pasamos
+        int layerIndex = character.animator.GetLayerIndex(overrideLayerName);
 
-        int layerIndex = character.animator.GetLayerIndex("Action Override");
+        // 3. IMPORTANTE: Pasamos 'layerIndex' al CrossFade. 
+        // Si no lo pasas, Unity intenta adivinar o usa la capa base.
         character.animator.CrossFade(targetAnimation, 0.1f, layerIndex);
-
 
         character.isPerformingAction = isPerformingAction;
         character.canRotate = canRotate;
         character.canMove = canMove;
 
+        // Nota: Si tu RPC de red también necesita saber la capa para reproducirlo en otros clientes,
+        // tendrías que actualizar el RPC también. Por ahora, esto arregla tu cliente local.
         character.characterNetworkManager.NotifyTheServerOfActionAnimationServerRpc(NetworkManager.Singleton.LocalClientId, targetAnimation, applyRootMotion);
-        
-
-        
     }
 
 }

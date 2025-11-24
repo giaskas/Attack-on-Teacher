@@ -5,8 +5,12 @@ public class PlayerNetworkManager : CharacterNetworkManager
     PlayerManager player;
 
     [Header("Equipment")]
+    public NetworkVariable<int> currentWeaponBeingUsed = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+
     public NetworkVariable<int> currentRightHandWeaponID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     public NetworkVariable<int> currentLefttHandWeaponID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public NetworkVariable<bool> isUsingRightHand=new NetworkVariable<bool>(false,NetworkVariableReadPermission.Everyone,NetworkVariableWritePermission.Owner);
+    public NetworkVariable<bool> isUsingLeftHand=new NetworkVariable<bool>(false,NetworkVariableReadPermission.Everyone,NetworkVariableWritePermission.Owner);
 
 
     protected override void Awake()
@@ -15,6 +19,21 @@ public class PlayerNetworkManager : CharacterNetworkManager
 
         player = GetComponent<PlayerManager>();
     }
+
+    public void SetCharacterActionHand(bool righHandedAction)
+    {
+        if (righHandedAction)
+        {
+            isUsingLeftHand.Value = false;
+            isUsingRightHand.Value=true;
+        }
+        else
+        {
+            isUsingLeftHand.Value=true;
+            isUsingRightHand.Value=false;
+        }
+    }
+
     public void SetNewMaxHealthValue(int oldVitality, int newVitality)
     {
         maxHealth.Value = player.playerStatsManager.CalculateHealthBasedOnHealthLevel(newVitality);
@@ -41,5 +60,11 @@ public class PlayerNetworkManager : CharacterNetworkManager
         player.playerInventoryManager.currentLeftHandWeapon = newWeapon;
     //    player.playerEquipmentManager.LoadLeftWeapon();
 
+    }
+        public void OnCurrentWeaponBeingUsedIDChange(int oldID, int newID)
+    {
+        ItemWeapons newWeapon = Instantiate(WorldItemDataBase.Instance.GetWeaponID(newID));
+        player.playerCombatManager.currentWeaponBeingUsed = newWeapon;
+        player.playerEquipmentManager.LoadRightWeapon();
     }
 }

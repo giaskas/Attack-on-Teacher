@@ -15,7 +15,7 @@ MonoBehaviour:
   itemName: Claymore Sword
   itemIcon: {fileID: 0}
   itemDescription: 
-  itemID: 0
+  itemID: 1
   weaponModel: {fileID: 6143710499581898270, guid: ae30221b0f6efe44ab3b16ebd5e116a7, type: 3}
   strengthREQ: 10
   dexREQ: 10
@@ -25,3 +25,4 @@ MonoBehaviour:
   magicDamage: 0
   fireDamage: 0
   baseStaminaCost: 20
+  RB_Action: {fileID: 11400000, guid: 127b9d03594edd141803bd69b842383a, type: 2}

@@ -16,6 +16,7 @@ public class PlayerManager : CharacterManager
     [HideInInspector] public PlayerInventoryManager playerInventoryManager;
 
     [HideInInspector] public PlayerEquipmentManager playerEquipmentManager;
+    [HideInInspector]public PlayerCombatManager playerCombatManager;
     protected override void Awake()
     {
         base.Awake();
@@ -25,6 +26,7 @@ public class PlayerManager : CharacterManager
         playerStatsManager = GetComponent<PlayerStatsManager>();
         playerInventoryManager = GetComponent<PlayerInventoryManager>();
         playerEquipmentManager = GetComponent<PlayerEquipmentManager>();
+        playerCombatManager = GetComponent<PlayerCombatManager>();
     }
     protected override void Update()
     {
@@ -65,6 +67,7 @@ public class PlayerManager : CharacterManager
         playerNetworkManager.currentHealth.OnValueChanged += playerNetworkManager.ChechHP;
         playerNetworkManager.currentRightHandWeaponID.OnValueChanged += playerNetworkManager.OnCurrentRightHandWeaponIDChange;
         playerNetworkManager.currentLefttHandWeaponID.OnValueChanged += playerNetworkManager.OnCurrentLeftHandWeaponIDChange;
+        playerNetworkManager.currentWeaponBeingUsed.OnValueChanged += playerNetworkManager.OnCurrentWeaponBeingUsedIDChange;
 
     }
 

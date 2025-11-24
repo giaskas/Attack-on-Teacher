@@ -14,6 +14,7 @@ public class WeaponModelInstantiationSlot : MonoBehaviour
 
     public void LoadWeapon(GameObject weaponModel)
     {
+        
         currentWeaponModel = weaponModel;
         weaponModel.transform.parent=transform;
 
