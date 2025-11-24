@@ -34,7 +34,6 @@ public class SaveFileDataWriter
         try
         {
             Directory.CreateDirectory(Path.GetDirectoryName(savePath));
-            Debug.Log("Creando juego guardado en: " +savePath);
 
             //serializar el objeto de Unity a json
             string dataToStore = JsonUtility.ToJson(characterSaveData, true);
@@ -44,7 +43,6 @@ public class SaveFileDataWriter
                 using (StreamWriter fileWriter = new StreamWriter(stream))
                 {
                     fileWriter.Write(dataToStore);
-                    Debug.Log("Juego guardado creado correctamente.");
                 }
             }
         }

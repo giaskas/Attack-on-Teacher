@@ -147,7 +147,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
         }
         else
         {
-            //roll para atras
+            player.playerAnimatorManager.PlayerTargetActionAnimation("BackStep_01", true, true);
         }
         player.playerNetworkManager.currentStamina.Value -= dodgeStaminaCost;
 

@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerManager : CharacterManager
 
 {
+    [SerializeField] bool switchRightWeapon= false;
 
     [HideInInspector] public PlayerLocomotionManager playerLocomotionManager;
 
@@ -13,6 +14,8 @@ public class PlayerManager : CharacterManager
 
     [HideInInspector] public PlayerStatsManager playerStatsManager;
     [HideInInspector] public PlayerInventoryManager playerInventoryManager;
+
+    [HideInInspector] public PlayerEquipmentManager playerEquipmentManager;
     protected override void Awake()
     {
         base.Awake();
@@ -21,6 +24,7 @@ public class PlayerManager : CharacterManager
         playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
         playerStatsManager = GetComponent<PlayerStatsManager>();
         playerInventoryManager = GetComponent<PlayerInventoryManager>();
+        playerEquipmentManager = GetComponent<PlayerEquipmentManager>();
     }
     protected override void Update()
     {
@@ -32,6 +36,7 @@ public class PlayerManager : CharacterManager
         }
         playerLocomotionManager.HandleAllMovement();
         playerStatsManager.RegenerateStamina();
+        DebugMenu();
     }
     public override void OnNetworkSpawn()
     {
@@ -56,7 +61,10 @@ public class PlayerManager : CharacterManager
 
         }
 
+
         playerNetworkManager.currentHealth.OnValueChanged += playerNetworkManager.ChechHP;
+        playerNetworkManager.currentRightHandWeaponID.OnValueChanged += playerNetworkManager.OnCurrentRightHandWeaponIDChange;
+        playerNetworkManager.currentLefttHandWeaponID.OnValueChanged += playerNetworkManager.OnCurrentLeftHandWeaponIDChange;
 
     }
 
@@ -104,5 +112,13 @@ public class PlayerManager : CharacterManager
             playerNetworkManager.currentStamina.Value = currentCharacterData.currentStamina;
             PlayerUIManager.instance.playerUIHudManager.SetMaxStaminaValue(playerNetworkManager.maxStamina.Value);
         
+    }
+    private void DebugMenu()
+    {
+        if (switchRightWeapon)
+        {
+            switchRightWeapon =  false;
+            playerEquipmentManager.SwitchRightWeapon();
+        }
     }
 }

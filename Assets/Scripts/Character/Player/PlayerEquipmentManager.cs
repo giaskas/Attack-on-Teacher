@@ -7,6 +7,9 @@ public class PlayerEquipmentManager : CharacterEquipmentManager
     public WeaponModelInstantiationSlot rightHandSlot;
     public WeaponModelInstantiationSlot leftHandSlot;
 
+    [SerializeField] WeaponManager rightWeaponManager;
+    [SerializeField] WeaponManager leftWeaponManager;
+
     public GameObject rightHandWeaponModel;
     public GameObject leftHandWeaponModel;
 
@@ -46,9 +49,50 @@ public class PlayerEquipmentManager : CharacterEquipmentManager
 
     public void LoadWeaponOnBothHands()
     {
-        LoadLeftWeapon();
         LoadRightWeapon();
     }
+
+    public void SwitchRightWeapon()
+{
+    if (!player.IsOwner)
+        return;
+
+    // 1. Guardamos el índice actual para referencia
+    int currentWeaponIndex = player.playerInventoryManager.rightHandedWeaponIndex;
+    
+    // 2. Intentamos buscar la siguiente arma válida (probamos máximo 3 veces, una por cada slot)
+    for (int i = 1; i < player.playerInventoryManager.weaponsInRigthHandSlots.Length + 1; i++)
+    {
+        // Calculamos el siguiente índice usando Módulo (%) para que dé la vuelta (0, 1, 2, 0...)
+        int potentialIndex = (currentWeaponIndex + i) % player.playerInventoryManager.weaponsInRigthHandSlots.Length;
+
+        // Obtenemos el arma en ese slot potencial
+        ItemWeapons potentialWeapon = player.playerInventoryManager.weaponsInRigthHandSlots[potentialIndex];
+
+        // 3. Verificamos si el arma NO es nula y NO es la desarmada
+        if (potentialWeapon != null && potentialWeapon.itemID != WorldItemDataBase.Instance.unarmedWeapon.itemID)
+        {
+            // ¡ENCONTRAMOS UN ARMA VÁLIDA!
+            player.playerInventoryManager.rightHandedWeaponIndex = potentialIndex;
+            player.playerNetworkManager.currentRightHandWeaponID.Value = potentialWeapon.itemID;
+            return; // Salimos de la función, ya cambiamos el arma
+        }
+    }
+
+    // 4. Si llegamos aquí, significa que revisamos todos los slots y NO había armas válidas (solo Unarmed).
+    // Entonces sí, equipamos Unarmed y ponemos índice -1.
+    if (player.playerInventoryManager.rightHandedWeaponIndex != -1)
+    {
+        player.playerInventoryManager.rightHandedWeaponIndex = -1;
+        player.playerNetworkManager.currentRightHandWeaponID.Value = WorldItemDataBase.Instance.unarmedWeapon.itemID;
+    }
+}
+
+    public void SwitchLeftWeapon()
+    {
+        
+    }
+
 
     public void LoadRightWeapon()
     {
@@ -56,16 +100,13 @@ public class PlayerEquipmentManager : CharacterEquipmentManager
         {
             rightHandWeaponModel= Instantiate(player.playerInventoryManager.currentRightHandWeapon.weaponModel);
             rightHandSlot.LoadWeapon(rightHandWeaponModel);
+            rightWeaponManager = rightHandWeaponModel.GetComponent<WeaponManager>();
+
+            rightWeaponManager.SetWeaponDamage(player, player.playerInventoryManager.currentRightHandWeapon);
+
         }
     }
 
-    public void LoadLeftWeapon()
-    {
-        if (player.playerInventoryManager.currentLeftHandWeapon != null)
-        {
-            leftHandWeaponModel = Instantiate(player.playerInventoryManager.currentLeftHandWeapon.weaponModel);
-            leftHandSlot.LoadWeapon(leftHandWeaponModel);
-        }
-    }
+   
 
 }

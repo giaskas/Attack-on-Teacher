@@ -2,11 +2,13 @@ using Unity.VisualScripting;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.IO.LowLevel.Unsafe;
 
 
 public class DamageCollider : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [Header("Collider")]
+    protected Collider damageCollider;
     [Header("Damage")]
     public float physicalDamage = 0 ;
     public float magicDamage = 0;
@@ -48,4 +50,17 @@ public class DamageCollider : MonoBehaviour
 
         damageTarget.characterEffectsManager.ProcessInstantEffects(damageEffect);
     }
+
+    public virtual void EnableDamageCollider()
+    {
+        damageCollider.enabled=true;
+        
+    }
+
+    public virtual void DisableDamageCollider()
+    {
+        damageCollider.enabled=true;
+        charactersDamaged.Clear();
+    }
+
 }
