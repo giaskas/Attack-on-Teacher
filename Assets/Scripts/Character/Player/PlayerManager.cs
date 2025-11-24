@@ -17,6 +17,7 @@ public class PlayerManager : CharacterManager
 
     [HideInInspector] public PlayerEquipmentManager playerEquipmentManager;
     [HideInInspector]public PlayerCombatManager playerCombatManager;
+    
     protected override void Awake()
     {
         base.Awake();

@@ -51,4 +51,27 @@ public class CharacterAnimatorManager : MonoBehaviour
         character.characterNetworkManager.NotifyTheServerOfActionAnimationServerRpc(NetworkManager.Singleton.LocalClientId, targetAnimation, applyRootMotion);
     }
 
+    public virtual void PlayerTargetAttackActionAnimation(AttackType attackType,
+        string targetAnimation,
+        bool isPerformingAction = true,
+        bool applyRootMotion = true,
+        bool canRotate = false,
+        bool canMove = false,
+        string overrideLayerName = "Action Override") 
+    {
+
+        //saber si le pica varias al boton de atacar para saber si hace combos
+        //saber que tipo de ataque es (light attack or heavy attack)
+        //
+        character.characterCombatManager.currentAttackType = attackType;
+        character.applyRootMotion = applyRootMotion;
+        int layerIndex = character.animator.GetLayerIndex(overrideLayerName);
+        character.animator.CrossFade(targetAnimation, 0.1f, layerIndex);
+        character.isPerformingAction = isPerformingAction;
+        character.canRotate = canRotate;
+        character.canMove = canMove;
+
+        character.characterNetworkManager.NotifyTheServerOfAttackActionAnimationServerRpc(NetworkManager.Singleton.LocalClientId, targetAnimation, applyRootMotion);
+    }
+
 }

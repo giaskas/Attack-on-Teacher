@@ -10,8 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6664901109293310412}
   - component: {fileID: 8430816238744933488}
-  - component: {fileID: 5425856048523611504}
-  - component: {fileID: 5865202706519044993}
   m_Layer: 10
   m_Name: Unarmed
   m_TagString: Untagged
@@ -31,7 +29,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1556496470363302146}
   m_Father: {fileID: 7225622563671987962}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &8430816238744933488
@@ -79,43 +78,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5425856048523611504
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1601361563491742146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 888c9892f6752f841b46ed5da85e46b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  physicalDamage: 10
-  magicDamage: 0
-  fireDamage: 0
-  characterCausingDamage: {fileID: 0}
---- !u!135 &5865202706519044993
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1601361563491742146}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Radius: 0.1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4567796584096777449
 GameObject:
   m_ObjectHideFlags: 0
@@ -161,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c02c3dbbfc18b740815c3c20eea4685, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meleeDamageCollider: {fileID: 0}
+  meleeDamageCollider: {fileID: 7501384505693764542}
 --- !u!1 &8909296613876358656
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,3 +156,76 @@ Transform:
   - {fileID: 6664901109293310412}
   m_Father: {fileID: 549406325491733008}
   m_LocalEulerAnglesHint: {x: -78.199, y: -65.34, z: 57.415}
+--- !u!1 &8991879910206646545
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1556496470363302146}
+  - component: {fileID: 4498054104102532547}
+  - component: {fileID: 7501384505693764542}
+  m_Layer: 10
+  m_Name: Damage Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1556496470363302146
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8991879910206646545}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6664901109293310412}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &4498054104102532547
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8991879910206646545}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7501384505693764542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8991879910206646545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 888c9892f6752f841b46ed5da85e46b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageCollider: {fileID: 4498054104102532547}
+  physicalDamage: 10
+  magicDamage: 0
+  fireDamage: 0
+  contactPoint: {x: 0, y: 0, z: 0}
+  characterCausingDamage: {fileID: 0}
+  light_Attack_01_Modifier: 0

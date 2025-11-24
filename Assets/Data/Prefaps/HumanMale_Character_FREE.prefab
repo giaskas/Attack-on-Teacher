@@ -1218,6 +1218,7 @@ MonoBehaviour:
   characterNetworkManager: {fileID: 0}
   characterEffectsManager: {fileID: 0}
   characterAnimatorManager: {fileID: 0}
+  characterCombatManager: {fileID: 0}
   isPerformingAction: 0
   applyRootMotion: 0
   canRotate: 1
@@ -1335,7 +1336,7 @@ MonoBehaviour:
   weaponsInRigthHandSlots:
   - {fileID: 11400000, guid: a5858a0f316a3cf479bdcff945d848b9, type: 2}
   - {fileID: 11400000, guid: a5858a0f316a3cf479bdcff945d848b9, type: 2}
-  - {fileID: 11400000, guid: a5858a0f316a3cf479bdcff945d848b9, type: 2}
+  - {fileID: 11400000, guid: 97e876e896ed3d04b8261092478729c8, type: 2}
   rightHandedWeaponIndex: 0
   weaponsInLeftHandSlots:
   - {fileID: 11400000, guid: 0745cb2e10f72a34f96f9f5a439f412a, type: 2}
@@ -1354,6 +1355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edb2e7d6829dbaf4d9d494ec364f88ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentAttackType: 0
   currentWeaponBeingUsed: {fileID: 0}
 --- !u!114 &-2245450752450175737
 MonoBehaviour:

@@ -143,6 +143,34 @@ public class PlayerEquipmentManager : CharacterEquipmentManager
 
         }
     }
+    public void OpenDamageCollider()
+    {
+        if (player.playerNetworkManager.isUsingRightHand.Value)
+        {
+            rightWeaponManager.meleeDamageCollider.EnableDamageCollider();
+        }
+        else if(player.playerNetworkManager.isUsingLeftHand.Value)
+        {
+            leftWeaponManager.meleeDamageCollider.EnableDamageCollider();
+
+        }
+
+        //reproducir CLAAAANKKKKKK (espada) sonido
+    }
+    public void CloseDamageCollider()
+    {
+        if (player.playerNetworkManager.isUsingRightHand.Value)
+        {
+            rightWeaponManager.meleeDamageCollider.DisableDamageCollider();
+        }
+        else if(player.playerNetworkManager.isUsingLeftHand.Value)
+        {
+            leftWeaponManager.meleeDamageCollider.DisableDamageCollider();
+
+        }
+
+        //reproducir CLAAAANKKKKKK (espada) sonido
+    }
 
    
 

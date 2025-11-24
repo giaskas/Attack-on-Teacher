@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using Unity.Netcode;
 public class PlayerCombatManager : CharacterCombatManager
 {
     PlayerManager player;
@@ -14,9 +14,36 @@ public class PlayerCombatManager : CharacterCombatManager
 
     public void PerformActionBasedAction(WeaponItemAction weaponAction, ItemWeapons weaponPerformingAction)
     {
-        
-        weaponAction.AttemptToPerformAction(player, weaponPerformingAction);
+        if (player.IsOwner)
+        {
+            weaponAction.AttemptToPerformAction(player, weaponPerformingAction);
 
+            player.playerNetworkManager.NotifyTheServerOfWeaponActionServerRpc(NetworkManager.Singleton.LocalClientId,weaponAction.actionID,weaponPerformingAction.itemID);
+        
+        }
+        
+    }
+
+    public virtual void DrainStaminaBaseOnAttack()
+    {
+
+        if (!player.IsOwner)
+            return;
+        if(currentWeaponBeingUsed==null)
+            return;
+
+        float staminaDeducted=0;
+        switch (currentAttackType)
+        {
+            case AttackType.LightAttack01:
+                staminaDeducted = currentWeaponBeingUsed.baseStaminaCost * currentWeaponBeingUsed.light_Attack_01_Modifier;
+                break;
+            default:
+
+                break;
+        }
+
+        player.playerNetworkManager.currentStamina.Value -= Mathf.RoundToInt(staminaDeducted);
 
     }
 

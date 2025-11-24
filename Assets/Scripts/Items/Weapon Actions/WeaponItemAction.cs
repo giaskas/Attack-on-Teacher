@@ -12,6 +12,5 @@ public class WeaponItemAction : ScriptableObject
         {
             playerPerfomingAction.playerNetworkManager.currentWeaponBeingUsed.Value= weaponPerformingAction.itemID;
         }
-        Debug.Log("sifunciono putitas");
     }   
 }

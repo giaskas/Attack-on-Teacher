@@ -8,19 +8,24 @@ using Unity.IO.LowLevel.Unsafe;
 public class DamageCollider : MonoBehaviour
 {
     [Header("Collider")]
-    protected Collider damageCollider;
+    [SerializeField] protected Collider damageCollider;
     [Header("Damage")]
     public float physicalDamage = 0 ;
     public float magicDamage = 0;
     public float fireDamage = 0;
 
     [Header("Contact Point")]
-    private Vector3 contactPoint;
+    public Vector3 contactPoint;
 
     [Header("Character Damaged")]
     protected List<CharacterManager> charactersDamaged = new List<CharacterManager>();
 
-    private void OnTriggerEnter(Collider other)
+    protected virtual void Awake()
+    {
+        
+    }
+
+    protected virtual void OnTriggerEnter(Collider other)
     {
         CharacterManager damageTarget = other.GetComponent<CharacterManager>();
 
