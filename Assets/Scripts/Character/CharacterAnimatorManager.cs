@@ -7,6 +7,13 @@ public class CharacterAnimatorManager : MonoBehaviour
 
     int vertical;
     int horizontal;
+
+    [Header("Damage Animations")]
+    public string hit_Forward = "hit_Forward";
+    public string hit_Backward = "hit_Backward";
+    public string hit_Left = "hit_Left";
+    public string hit_Right = "hit_Right";
+
     protected virtual void Awake()
     {
         character = GetComponent<CharacterManager>();
