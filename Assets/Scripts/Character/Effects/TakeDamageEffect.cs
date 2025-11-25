@@ -41,6 +41,8 @@ public class TakeDamageEffect : InstantCharacterEffects
 
         CalculateDamage(character);
 
+        PlayDamageVFX(character);
+
         
         
     }
@@ -69,5 +71,10 @@ public class TakeDamageEffect : InstantCharacterEffects
             }
             character.characterNetworkManager.currentHealth.Value -= finalDamageDealt;
         
+    }
+
+    private void PlayDamageVFX(CharacterManager character)
+    {
+        character.characterEffectsManager.PlayBloodSplatterVFX(contactPoint);
     }
 }

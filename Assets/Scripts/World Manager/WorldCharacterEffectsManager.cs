@@ -4,11 +4,15 @@ using UnityEngine;
 public class WorldCharacterEffectsManager : MonoBehaviour
 {
     public static WorldCharacterEffectsManager instance;
+    [Header("VFX")]
+    public GameObject bloodSplatterVFX;
 
     [Header("Damage")]
     public TakeDamageEffect takeDamageEffect;
 
     [SerializeField] List<InstantCharacterEffects> instantEffects;
+
+
 
     private void Awake()
     {

@@ -24,6 +24,7 @@ public class CharacterNetworkManager : NetworkBehaviour
 
     [Header("Flags")]
     public NetworkVariable<bool> isSprinting = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public NetworkVariable<bool> isChargingAttack = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
     [Header("Character")]
     public NetworkVariable<FixedString64Bytes> characterName = new NetworkVariable<FixedString64Bytes>(new FixedString64Bytes("personaje"), NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
@@ -58,6 +59,11 @@ public class CharacterNetworkManager : NetworkBehaviour
                 currentHealth.Value = maxHealth.Value;
             }
         }
+    }
+
+    public void OnIsChargingAttackChanged(bool oldStatus, bool newBool)
+    {
+        character.animator.SetBool("isChargingAttack", isChargingAttack.Value );
     }
 
     [ServerRpc]

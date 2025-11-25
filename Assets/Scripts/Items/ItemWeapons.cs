@@ -17,7 +17,10 @@ public class ItemWeapons : Items
     public int fireDamage=0;
 
     [Header("Attack Modifiers")]
-    public float light_Attack_01_Modifier =1;
+    public float light_Attack_01_Modifier =1.1f;
+    public float heavy_Attack_01_Modifier =1.5f;
+    public float charge_Attack_01_Modifier =2.0f;
+
 
     [Header("Stamina Costs Modifiers")]
     public int baseStaminaCost = 20;
@@ -25,5 +28,6 @@ public class ItemWeapons : Items
 
     [Header("Actions")]
     public WeaponItemAction RB_Action;
+    public WeaponItemAction RT_Action;
     
 }

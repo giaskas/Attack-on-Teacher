@@ -14,6 +14,8 @@ public class PlayerCombatManager : CharacterCombatManager
 
     public void PerformActionBasedAction(WeaponItemAction weaponAction, ItemWeapons weaponPerformingAction)
     {
+        if(currentWeaponBeingUsed==null)
+            return;
         if (player.IsOwner)
         {
             weaponAction.AttemptToPerformAction(player, weaponPerformingAction);
@@ -37,6 +39,12 @@ public class PlayerCombatManager : CharacterCombatManager
         {
             case AttackType.LightAttack01:
                 staminaDeducted = currentWeaponBeingUsed.baseStaminaCost * currentWeaponBeingUsed.light_Attack_01_Modifier;
+                break;
+            case AttackType.HeavyAttack01:
+                staminaDeducted = currentWeaponBeingUsed.baseStaminaCost * currentWeaponBeingUsed.heavy_Attack_01_Modifier;
+                break;
+            case AttackType.ChargedAttack01:
+                staminaDeducted = currentWeaponBeingUsed.baseStaminaCost * currentWeaponBeingUsed.charge_Attack_01_Modifier;
                 break;
             default:
 

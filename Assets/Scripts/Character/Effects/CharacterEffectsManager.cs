@@ -10,6 +10,8 @@ public class CharacterEffectsManager : MonoBehaviour
     //process static effects (adding/removing buffs from equipment)
 
     CharacterManager character;
+    [Header("VFX")]
+    [SerializeField] GameObject bloodSplatterVFX;
 
     protected virtual void Awake()
     {
@@ -19,5 +21,17 @@ public class CharacterEffectsManager : MonoBehaviour
     public void ProcessInstantEffects(InstantCharacterEffects effect)
     {
         effect.ProcessEffect(character);
+    }
+
+    public void PlayBloodSplatterVFX(Vector3 contactPoint)
+    {
+        if(bloodSplatterVFX != null)
+        {
+            GameObject bloodSplater = Instantiate (bloodSplatterVFX,contactPoint , Quaternion.identity);
+        }
+        else
+        {
+            GameObject bloodSplater = Instantiate (WorldCharacterEffectsManager.instance.bloodSplatterVFX, contactPoint, Quaternion.identity);
+        }
     }
 }
