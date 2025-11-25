@@ -1,6 +1,7 @@
 using UnityEngine;
 using Unity.Netcode;
 using System.Collections;
+using System.Collections.Generic;
 
 public class CharacterManager : NetworkBehaviour
 {
@@ -35,6 +36,11 @@ public class CharacterManager : NetworkBehaviour
         characterAnimatorManager = GetComponent<CharacterAnimatorManager>();
         characterCombatManager= GetComponent<CharacterCombatManager>();
         
+    }
+
+    protected virtual void Start()
+    {
+        IgnoreMyOwnColliders();
     }
 
     public override void OnNetworkSpawn()
@@ -98,5 +104,28 @@ public class CharacterManager : NetworkBehaviour
 
 
         yield return new WaitForSeconds(5);
+    }
+
+    protected virtual void IgnoreMyOwnColliders()
+    {
+        Collider characterControllerCollider= GetComponent<Collider>();
+        Collider[] damageableCharacterColliders= GetComponentsInChildren<Collider>();
+
+        List<Collider> ignoreColliders = new List<Collider>();
+        
+        foreach(var Collider in damageableCharacterColliders)
+        {
+            ignoreColliders.Add(Collider);
+        }
+
+        ignoreColliders.Add(characterControllerCollider);
+
+        foreach(var Collider in ignoreColliders)
+        {
+            foreach(var otherCollider in ignoreColliders)
+            {
+                Physics.IgnoreCollision(Collider,otherCollider, true);
+            }
+        }
     }
 }

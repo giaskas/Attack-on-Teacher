@@ -14,7 +14,7 @@ public class CharacterSaveData
 
     [Header("Coordenadas del mundo")]
     public float positionX= 0;
-    public float positionY=-30; 
+    public float positionY=-25; 
     public float positionZ= 0;
 
     [Header("Resources")]

@@ -53,65 +53,117 @@ public class PlayerEquipmentManager : CharacterEquipmentManager
     }
 
     public void SwitchRightWeapon()
-{
-    if (!player.IsOwner)
-        return;
-
-    // 1. Ejecutar Animación
-    player.playerAnimatorManager.PlayerTargetActionAnimation("Switch_Weapon_01", true, false, true, true, "RightHand Override");
-
-    // 2. Obtener índice actual
-    int currentIndex = player.playerInventoryManager.rightHandedWeaponIndex;
-    
-    // Variable para guardar el indice de la siguiente arma. 
-    // Lo iniciamos en -1 (Manos Vacías) por defecto.
-    int nextWeaponIndex = -1; 
-
-    ItemWeapons[] weapons = player.playerInventoryManager.weaponsInRigthHandSlots;
-
-    // 3. Buscar arma en los slots SIGUIENTES al actual
-    // (Ejemplo: Si tienes la espada en el slot 0, busca en el 1 y el 2)
-    for (int i = currentIndex + 1; i < weapons.Length; i++)
     {
-        if (weapons[i].itemID != WorldItemDataBase.Instance.unarmedWeapon.itemID)
-        {
-            nextWeaponIndex = i;
-            break; // ¡Encontramos la siguiente arma! Dejamos de buscar.
-        }
-    }
+        if (!player.IsOwner)
+            return;
 
-    // 4. Caso Especial: Si estamos en Manos Vacías (-1) y no encontramos nada arriba...
-    // Significa que tenemos que buscar desde el principio (Slot 0)
-    if (currentIndex == -1 && nextWeaponIndex == -1)
-    {
-         for (int i = 0; i < weapons.Length; i++)
+        // 1. Ejecutar Animación
+        player.playerAnimatorManager.PlayerTargetActionAnimation("Switch_Weapon_01", true, false, true, true, "RightHand Override");
+
+        // 2. Obtener índice actual
+        int currentIndex = player.playerInventoryManager.rightHandedWeaponIndex;
+        
+        // Variable para guardar el indice de la siguiente arma. 
+        // Lo iniciamos en -1 (Manos Vacías) por defecto.
+        int nextWeaponIndex = -1; 
+
+        ItemWeapons[] weapons = player.playerInventoryManager.weaponsInRigthHandSlots;
+
+        // 3. Buscar arma en los slots SIGUIENTES al actual
+        // (Ejemplo: Si tienes la espada en el slot 0, busca en el 1 y el 2)
+        for (int i = currentIndex + 1; i < weapons.Length; i++)
         {
             if (weapons[i].itemID != WorldItemDataBase.Instance.unarmedWeapon.itemID)
             {
                 nextWeaponIndex = i;
-                break; // Encontramos la primera arma de la lista
+                break; // ¡Encontramos la siguiente arma! Dejamos de buscar.
             }
         }
-    }
 
-    // 5. Aplicar el cambio
-    if (nextWeaponIndex != -1)
-    {
-        // Encontramos una espada nueva
-        player.playerInventoryManager.rightHandedWeaponIndex = nextWeaponIndex;
-        player.playerNetworkManager.currentRightHandWeaponID.Value = weapons[nextWeaponIndex].itemID;
-    }
-    else
-    {
-        // No encontramos nada más adelante en la lista, así que toca GUARDAR el arma (ir a -1)
-        player.playerInventoryManager.rightHandedWeaponIndex = -1;
-        player.playerNetworkManager.currentRightHandWeaponID.Value = WorldItemDataBase.Instance.unarmedWeapon.itemID;
-    }
+        // 4. Caso Especial: Si estamos en Manos Vacías (-1) y no encontramos nada arriba...
+        // Significa que tenemos que buscar desde el principio (Slot 0)
+        if (currentIndex == -1 && nextWeaponIndex == -1)
+        {
+            for (int i = 0; i < weapons.Length; i++)
+            {
+                if (weapons[i].itemID != WorldItemDataBase.Instance.unarmedWeapon.itemID)
+                {
+                    nextWeaponIndex = i;
+                    break; // Encontramos la primera arma de la lista
+                }
+            }
+        }
+
+        // 5. Aplicar el cambio
+        if (nextWeaponIndex != -1)
+        {
+            // Encontramos una espada nueva
+            player.playerInventoryManager.rightHandedWeaponIndex = nextWeaponIndex;
+            player.playerNetworkManager.currentRightHandWeaponID.Value = weapons[nextWeaponIndex].itemID;
+        }
+        else
+        {
+            // No encontramos nada más adelante en la lista, así que toca GUARDAR el arma (ir a -1)
+            player.playerInventoryManager.rightHandedWeaponIndex = -1;
+            player.playerNetworkManager.currentRightHandWeaponID.Value = WorldItemDataBase.Instance.unarmedWeapon.itemID;
+        }
 }
 
     public void SwitchLeftWeapon()
     {
+        if (!player.IsOwner)
+            return;
+
+        // 1. Ejecutar Animación
+        player.playerAnimatorManager.PlayerTargetActionAnimation("Switch_Weapon_left", true, false, true, true, "LeftHand Override");
+
+        // 2. Obtener índice actual
+        int currentIndex = player.playerInventoryManager.leftHandedWeaponIndex;
         
+        // Variable para guardar el indice de la siguiente arma. 
+        // Lo iniciamos en -1 (Manos Vacías) por defecto.
+        int nextWeaponIndex = -1; 
+
+        ItemWeapons[] weapons = player.playerInventoryManager.weaponsInLeftHandSlots;
+
+        // 3. Buscar arma en los slots SIGUIENTES al actual
+        // (Ejemplo: Si tienes la espada en el slot 0, busca en el 1 y el 2)
+        for (int i = currentIndex + 1; i < weapons.Length; i++)
+        {
+            if (weapons[i].itemID != WorldItemDataBase.Instance.unarmedWeapon.itemID)
+            {
+                nextWeaponIndex = i;
+                break; // ¡Encontramos la siguiente arma! Dejamos de buscar.
+            }
+        }
+
+        // 4. Caso Especial: Si estamos en Manos Vacías (-1) y no encontramos nada arriba...
+        // Significa que tenemos que buscar desde el principio (Slot 0)
+        if (currentIndex == -1 && nextWeaponIndex == -1)
+        {
+            for (int i = 0; i < weapons.Length; i++)
+            {
+                if (weapons[i].itemID != WorldItemDataBase.Instance.unarmedWeapon.itemID)
+                {
+                    nextWeaponIndex = i;
+                    break; // Encontramos la primera arma de la lista
+                }
+            }
+        }
+
+        // 5. Aplicar el cambio
+        if (nextWeaponIndex != -1)
+        {
+            // Encontramos una espada nueva
+            player.playerInventoryManager.leftHandedWeaponIndex = nextWeaponIndex;
+            player.playerNetworkManager.currentLefttHandWeaponID.Value = weapons[nextWeaponIndex].itemID;
+        }
+        else
+        {
+            // No encontramos nada más adelante en la lista, así que toca GUARDAR el arma (ir a -1)
+            player.playerInventoryManager.leftHandedWeaponIndex = -1;
+            player.playerNetworkManager.currentLefttHandWeaponID.Value = WorldItemDataBase.Instance.unarmedWeapon.itemID;
+        }
     }
 
 

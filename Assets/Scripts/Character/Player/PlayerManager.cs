@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerManager : CharacterManager
 
 {
-    [SerializeField] bool switchRightWeapon= false;
+    
 
     [HideInInspector] public PlayerLocomotionManager playerLocomotionManager;
 
@@ -39,7 +39,6 @@ public class PlayerManager : CharacterManager
         }
         playerLocomotionManager.HandleAllMovement();
         playerStatsManager.RegenerateStamina();
-        DebugMenu();
     }
     public override void OnNetworkSpawn()
     {
@@ -62,13 +61,51 @@ public class PlayerManager : CharacterManager
             playerNetworkManager.currentStamina.OnValueChanged += playerStatsManager.ResetStaminaRegenTimer;
 
 
+
         }
 
-
+        //stats
         playerNetworkManager.currentHealth.OnValueChanged += playerNetworkManager.ChechHP;
+        //equipment
         playerNetworkManager.currentRightHandWeaponID.OnValueChanged += playerNetworkManager.OnCurrentRightHandWeaponIDChange;
         playerNetworkManager.currentLefttHandWeaponID.OnValueChanged += playerNetworkManager.OnCurrentLeftHandWeaponIDChange;
         playerNetworkManager.currentWeaponBeingUsed.OnValueChanged += playerNetworkManager.OnCurrentWeaponBeingUsedIDChange;
+
+        //flags
+        playerNetworkManager.isChargingAttack.OnValueChanged += playerNetworkManager.OnIsChargingAttackChanged;
+
+    }
+
+    public override void OnNetworkDespawn()
+    {
+        base.OnNetworkDespawn();
+         if (IsOwner)
+        {
+            
+
+
+            //cambiar el total de stamina o vida cuando los stats son cambiados
+            playerNetworkManager.vitality.OnValueChanged -= playerNetworkManager.SetNewMaxHealthValue;
+            playerNetworkManager.endurance.OnValueChanged -= playerNetworkManager.SetNewMaxStaminaValue;
+
+
+            playerNetworkManager.currentHealth.OnValueChanged -= PlayerUIManager.instance.playerUIHudManager.SetHealthValue;
+            playerNetworkManager.currentStamina.OnValueChanged -= PlayerUIManager.instance.playerUIHudManager.SetStaminaValue;
+            playerNetworkManager.currentStamina.OnValueChanged -= playerStatsManager.ResetStaminaRegenTimer;
+
+
+
+        }
+
+        //stats
+        playerNetworkManager.currentHealth.OnValueChanged -= playerNetworkManager.ChechHP;
+        //equipment
+        playerNetworkManager.currentRightHandWeaponID.OnValueChanged -= playerNetworkManager.OnCurrentRightHandWeaponIDChange;
+        playerNetworkManager.currentLefttHandWeaponID.OnValueChanged -= playerNetworkManager.OnCurrentLeftHandWeaponIDChange;
+        playerNetworkManager.currentWeaponBeingUsed.OnValueChanged -= playerNetworkManager.OnCurrentWeaponBeingUsedIDChange;
+
+        //flags
+        playerNetworkManager.isChargingAttack.OnValueChanged -= playerNetworkManager.OnIsChargingAttackChanged;
 
     }
 
@@ -117,12 +154,5 @@ public class PlayerManager : CharacterManager
             PlayerUIManager.instance.playerUIHudManager.SetMaxStaminaValue(playerNetworkManager.maxStamina.Value);
         
     }
-    private void DebugMenu()
-    {
-        if (switchRightWeapon)
-        {
-            switchRightWeapon =  false;
-            playerEquipmentManager.SwitchRightWeapon();
-        }
-    }
+
 }

@@ -41,6 +41,9 @@ public class TakeDamageEffect : InstantCharacterEffects
 
         CalculateDamage(character);
 
+        PlayDamageVFX(character);
+
+        
         PlayDirectionalBasedDamageAnimation(character);
 
         
@@ -97,5 +100,10 @@ public class TakeDamageEffect : InstantCharacterEffects
         {
             damageAnimation = character.characterAnimatorManager.hit_Right;
         }
+    }
+
+    private void PlayDamageVFX(CharacterManager character)
+    {
+        character.characterEffectsManager.PlayBloodSplatterVFX(contactPoint);
     }
 }
