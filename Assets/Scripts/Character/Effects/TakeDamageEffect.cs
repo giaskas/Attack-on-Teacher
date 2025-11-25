@@ -44,33 +44,62 @@ public class TakeDamageEffect : InstantCharacterEffects
         PlayDamageVFX(character);
 
         
+        PlayDirectionalBasedDamageAnimation(character);
+
         
     }
 
     private void CalculateDamage(CharacterManager character)
     {
 
-        if(!character.IsOwner)
+        if (!character.IsOwner)
             return;
-        if(characterCausingDamage!= null)
+        if (characterCausingDamage != null)
         {
-            
+
         }
 
 
 
 
         finalDamageDealt = Mathf.RoundToInt(physicalDamage + magicDamage + fireDamage);
-        
 
-        
-        
-            if (finalDamageDealt <= 0)
-            {
-                finalDamageDealt=1;
-            }
-            character.characterNetworkManager.currentHealth.Value -= finalDamageDealt;
-        
+
+
+
+        if (finalDamageDealt <= 0)
+        {
+            finalDamageDealt = 1;
+        }
+        character.characterNetworkManager.currentHealth.Value -= finalDamageDealt;
+
+    }
+    
+    private void PlayDirectionalBasedDamageAnimation(CharacterManager character)
+    {
+        if (!character.IsOwner)
+            return;
+    
+        if (angleHitFrom >= 145 && angleHitFrom <= 180)
+        {
+            damageAnimation = character.characterAnimatorManager.hit_Forward;
+        }
+        else if (angleHitFrom <= 145 && angleHitFrom >= 180)
+        {
+            damageAnimation = character.characterAnimatorManager.hit_Forward;
+        }
+        else if (angleHitFrom >= -45 && angleHitFrom <= 180)
+        {
+            damageAnimation = character.characterAnimatorManager.hit_Backward;
+        }
+        else if (angleHitFrom >= -144 && angleHitFrom <= -45)
+        {
+            damageAnimation = character.characterAnimatorManager.hit_Left;
+        }
+        else if (angleHitFrom <= 45 && angleHitFrom >= 144)
+        {
+            damageAnimation = character.characterAnimatorManager.hit_Right;
+        }
     }
 
     private void PlayDamageVFX(CharacterManager character)
